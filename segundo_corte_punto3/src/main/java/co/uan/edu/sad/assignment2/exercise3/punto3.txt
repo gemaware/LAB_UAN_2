@@ -1,0 +1,159 @@
+
+______________________________________________________________________
+Identificacion de patrones en las API  del leguaje JAVA
+----------------------------------------------------------------------
+_
+
+Patrones CREACIONALES (abstract factory, builder, singleton, static factory method)
+-------------------------------------------------------------------------------------
+en:
+java.lang.Runtime -
+java.lang.Desktop -
+com.google.common.collect.MapMaker
+java.util.Calendar -
+java.text.NumberFormat -
+Java.nio.charset.Charset -
+javax.xml.parsers.DocumentBuilderFactory
+javax.xml.transform.TransformerFactory
+javax.xml.xpath.XPathFactory
+
+patrones identificados
+
+--------------------------------------------------
+Singleton en java.lang.Runtime y java.lang.Desktop
+--------------------------------------------------
+
+tiene metodos definidos static como: getRuntime() y runFinalizersOnExit(boolean value) este ultimo ya no se usa.
+singleton esta considerado como un antipatron y a perdido popularidad.
+
+tambien encontre getDesktop() que devuelve el contexto actualizado del browser.
+
+-----------------------------------------------------------------------------------
+Factory en java.util.Calendar - java.text.NumberFormat y Java.nio.charset.Charset
+------------------------------------------------------------------------------------
+
+Se utiliza para crear objetos, en lugar de una llamada directa al constructor con operador new.
+
+por ejemplo 
+
+public static Calendar getInstance() --> crea un calendario sin necesidad de usar new
+
+forName(String charsetName) --> devuelve el conjunto de caracteres aplicados
+
+NumberFormat getNumberInstance(Locale inLocale) -> formato de un NumberFormat
+
+----------------------------------------------------------------------------------------------------------------------------
+Abstract en javax.xml.parsers.DocumentBuilderFactory - avax.xml.transform.TransformerFactory y javax.xml.xpath.XPathFactory
+------------------------------------------------------------------------------------------------------------------------------
+
+newDocumentBuilder() y DocumentBuilderFactory() ---> crean interfaces para las clases que se encargan 
+de la creacion de objetos.
+
+
+
+ESTRUCTURALES (adapter, decorator, flyweight)
+---------------------------------------------
+
+java.lang.Integer -
+java.lang.Boolean -
+java.io.InputStreamReader -
+java.io.OutputStreamWriter -
+java.util.Arrays -
+java.io.BufferedInputStream -
+java.io.DataInputStream -
+java.io.BufferedOutputStream -
+java.util.zip.ZipOutputStream -
+java.util.Collections#checkedList() -
+
+
+
+-------------------------------------------------------------------------------------------------------
+adapter en java.io.InputStreamReader - java.io.OutputStreamWriter 
+    java.io.BufferedInputStream - java.io.DataInputStream - java.io.BufferedOutputStream
+--------------------------------------------------------------------------------------------------------
+
+InputStreamReader(InputStream in, Charset cs)--> adapta bytes streams y charset streams
+
+class OutputStreamWriter -> sus metodos adaptan el flujo de datos en diferentes formatos, tamaños y charsets
+para escribirlo en un archivo.
+
+class collections -> sus metodos contienen algoritmos polimórficos que operan en colecciones, "envoltorios", que devuelven una nueva colección 
+respaldada por una colección específica y algunas otras probabilidades y finales.
+
+---------------------------------------------------------------------------------------------------------
+decorator en java.util.Collections
+---------------------------------------------------------------------------------------------------------
+
+checkedCollection -> utiliza un algoritmo de decoracion que devuelve una vista dinámica
+ con seguridad de tipos de la colección especificada.
+
+
+--------------------------------------------------------------------------------------------------------
+flyweight java.lang.Integer - java.lang.Boolean
+--------------------------------------------------------------------------------------------------------
+
+clases que pueden implementar una gran cantidad de metodos y atributos sin usar mucha memoria
+
+metodos que implementa por ejemplo
+
+toString
+toUnsignedString
+toHexString
+
+que permiten conversiones entre tipos de datos.
+
+------------------------------------------------------------------------
+BEHAIVIOURAL (chain of responsibility, command, iterator, observer,
+strategy, template method)
+------------------------------------------------------------------------
+
+javax.servlet.FilterChain -
+java.lang.Runnable -
+java.util.concurrent.Callable
+java.util.Iterator -
+java.util.Comparator -
+javax.servlet.Filter -
+java.util.AbstractList, java.util.AbstractSet, java.util.AbstractMap
+java.io.InputStream, java.io.OutputStream, java.io.Reader,
+java.io.Writer
+java.util.EventListener -
+java.util.Observer -
+
+
+---------------------------------------------------------------------------------
+chain of responsability en javax.servlet.Filter - javax.servlet.FilterChain
+--------------------------------------------------------------------------------
+
+doFilter(ServletRequest request,ServletResponse response, FilterChain chain) -> va pasando responsabilidad 
+atraves de sus argumentos y registrando una traza tipo cadena para que una solicitud sea atendida.
+
+-----------------------------------------
+command en java.lang.Runnable 
+-----------------------------------------
+
+La interfaz Runnable debe ser implementada por cualquier clase cuyas instancias 
+estén destinadas a ser ejecutadas por un hilo. aqui es donde el comportamiento esta definido como un
+comando a ejecutar.
+
+
+------------------------------------------------
+interator java.util.Iterator
+------------------------------------------------
+
+ hasNext() --> Un iterador sobre una colección. Devuelve verdadero si la iteración tiene más elementos
+
+-----------------------------------------------------------
+ observer en java.util.Observer - java.util.EventListener
+ -------------------------------------------------------------
+
+ update(Observable o, Object arg) --> notifica a otros metodos si su estado cambio
+Interface EventListener --> permite definir la manera como los objetos estaran escuchando cuando un evento
+se active y permitira al sistema implementar o seguir un comportamiento definido en los metodos correspondientes
+
+------------------------------------------
+strategy en java.util.Comparator
+------------------------------------------
+
+compare(T o1,T o2) --> utiliza un algorirmo estrategico para identificar las diferencias entre los argumentos
+del metodo.
+

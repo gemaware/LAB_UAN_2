@@ -1,0 +1,68 @@
+METODO OBJECT EN JAVA
+
+----------------------------------------------------------------
+Propiedades que debe cumplir un metodo de comparacion de objetos
+----------------------------------------------------------------
+
+Lo primero que hay que tener encuenta es si segun el problema se debe sobreescribir el metodo equals
+analizano lo siguiente:
+
+
+a) Si no es necesaria una comparación lógica. Por ejemplo, dos números aleatorios, donde la igualdad puede ocurrir pero su comprobación no es necesaria.
+
+b) Una superclase ya sobrecarga equals, y el comportamiento de éste es apropiado para la clase actual.
+
+si despues de estas consideraciones es necesario sobreescribir equals debe tenerse en cuenta lo siguiente:
+
+Propiedades:
+
+-Reflexividad: x.equals(x) devuelve siempre verdadero, si no es nulo.
+-Simetría: para cualquier par de instancias no nulas, x.equals(y) devuelve verdadero si y sólo si y.equals(x) también devuelve verdadero.
+-Transitividad: si x.equals(y)==true y y.equals(z)==true, entonces x.equals(z) también será verdadero,
+ para cualesquiera instancias no nulas.
+-Consistencia: múltiples llamadas al método con las mismas instancias devuelven el mismo resultado.
+-Comparación con null falsa: x.equals(null) devuelve falso
+
+
+----------------------------------------------------
+COMPLETAR LA IMPLEMENTACION DE LAS SIGUIENTES CLASES
+----------------------------------------------------
+public class A {
+    int aField;
+    @Override
+    public boolean equals(Object o) {
+        if(this==o) {
+            return true;
+        }   
+        if(o==null) {
+            return false;
+        }
+        if(!(o instanceof A)) {
+            return false;
+        }
+        A other = (A) o;
+
+		return other.aField == afield; /* lineas adicionadas por geovani Martinez*/
+
+}
+
+}
+public class B extends A {
+    int bField;
+    @Override
+    public boolean equals(Object o) {
+        if(this==o) {
+            return true;
+        }
+        if(!super.equals(o)) {
+            return false;
+        }
+        if(!(o instanceof B)) {
+            return false;
+        }
+        B other = (B) o;
+
+        return super.equals(o) && bField.equals(other.bField);  /* lineas adicionadas por geovani Martinez*/
+
+
+}

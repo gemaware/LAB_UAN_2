@@ -1,0 +1,48 @@
+Principios de GRASP (General Responsibility Assignment Software Patterns).
+
+se decriben 8 patrones que son::
+
+1. Alta cohesión y bajo acoplamiento:
+
+Alta cohesion quiere decir que toda la informacion que almacena una clase debe estar relacionada, los metodos cumplen un papel importante en la optimizacion hacia una alta cohesion. Por ejemplo:
+
+a) Se entiende por cohesion funcional cuando el metodo de una clase solo realiza una tarea y solo entiende de una entidad. 
+b) Cohesion de informacion cuando una entidad se comunica con varios metodos y estos se ejecutan de nuna forma no secuencial siendo metodos independientes entre ellos. 
+c) se entiende por cohesion logica cuando existe varios metodos relacionado pero solo uno se ejecuta. d)Cohesion de procedimiennto cuando los metodos se ejecutan secuencialmente. 
+e)se entiende por cohesion coincidente con una clase sin metodos interrealacionados. 
+f)se entiende por cohesion temporal cuando todos los metodos de una clase se ejecutan simultaneamente. 
+
+el proposito del bajo acoplamiento es tener las clases lo menos relacionadas entre si. En GRASP se consideran 3 tipos de acoplamiento:
+
+a)acoplamiento de contenido:cuando una clase tiene referencia directa con otra clase.
+b)acoplamiento comun:cuando dos clases acceden al mismo objeto y este a su vez es global.
+c)acoplamiento de control: cuando una clase se comunica con otra y le envia todo lo que debe hacer.
+
+
+2. Controlador:
+
+Realiza la función de intermediario entre una determinada interfaz y la clase que la implementa con el objetivo de gestionar los eventos del sistema. Debe tenerse muy encuenta al momento de su diseño e implementacion de responsabilidades ya que puede ocasionar modelo de baja cohesion y alto acoplamiento.
+
+3. Creacion:
+
+El patron de creacion asigna la responsabilidad de creacion o quien instancia los nuevos objetos.
+
+4. Experto en informacion:
+
+Este patron define que quien contiene y sabe de toda la informacion es quien tiene la responsabilidad de crearlo asi se obtiene una mayor cohesion.
+
+5. Fabrica Pura:
+
+Este patron genera una clase adicional que permite solucionar problemas de poca cohesion. Pero su abuso podria generar que se diversifiquen clases con un solo metodo.
+
+6. Indireccion:
+
+Se convierte en una clase intermedia entre dos clases que se comunican con poca cohesion.
+
+7. Polimorfismo:
+
+Existe para metodos y clases, para las clases el polimorfismo permite un comportamiento diferente basado en el tipo de la clase.
+
+8. Variaciones protegidas:
+
+Principio fundamental de protegerse frente a nuevos requisitos o solicitudes, el objetivo es proteger la integridad de las clases.
