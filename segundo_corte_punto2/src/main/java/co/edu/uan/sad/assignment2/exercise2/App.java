@@ -9,6 +9,9 @@ public class App
     public static void main( String[] args )
     {
         System.out.println( "Sobreescritura de equals" );
+	A afi = new A;
+	B bfi = new B;
+	   
     }
 }
 public class A {
