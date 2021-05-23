@@ -1,0 +1,107 @@
+PUNTO 1
+--------------------------------------------------------------------------------------------
+Definir atributos de calidad. Una de las principales funciones del arquitecto de software es
+tomar decisiones de diseño que permitan cumplir con los atributos de calidad de software
+esperados, y para ellos, debe definir de forma muy clara y específica estos atributos de
+calidad a alcanzar. Defina tres atributos de calidad para los siguientes aspectos de un API
+REST
+
+a.Escalabilidad: conexiones simultáneas
+
+La escalabilidad con respecto a conexiones simultaneas debe ser previsto segun el crecimiento el consumo del servicio web
+para esto deben manejarse las siguientes pautas:
+
+-Manejo de cache si la informacion no es altamente cambiante para algunos de los nodos esto permite una consulta y entrega
+rapida de la informacion ampliando la capacidad de concurrencia de usuarios, ya que la api rest no seria usada por largos periodos por cada usuario.
+
+-El uso de capas o servidores intermedios puede servir para aumentar la escalabilidad por ejemplo un sistemas de balanceo de carga
+
+
+b. Desempeño: Tiempo de respuesta
+
+-Alto rendimiento: Se debe construir APIs de alto rendimiento con buenas practicas en la elaboracion del código y separación de funcionalidades, así como de la estructura y la arquitectura de datos subyacentes. 
+
+-Optimizacion de los datos en las bases de datos origenes, el objetivo es aplicar unas buenas estrategias de indexacion sobre la informacion en los datos que seran consultados atraves del api rest para que obtenga la informacion de la capa de datos mas rapidamente  permitiendo la reduccion de  tiempos de consumo.
+
+c. Seguridad:
+
+-Se debe mantener actualizadas las versiones de las API, generalmente se incorporan nuevas opciones de seguridad.
+-Se deben incorporar certificados en los servidores  y mantenerlos actualizados para proteger el intercambio de datos.
+-Para la autenticacion basicamente se deben implementar tres formas de autenticación en servidor: Basada en cookies, almacen de sesiones en bbdd  y por ultimo tokens.
+
+PUNTO 2
+---------------------------------------------------------------------------------------------------------------
+2. Probar atributos de calidad. Una vez el software es construido se debe verificar que se
+cumpla con los atributos de calidad definidos. En muchos escenarios también se realizan
+pruebas de desempeño del software para poder establecer una línea base de las metas que
+se se pueden alcanzar con una aplicación bajo unas condiciones dadas. En este caso usted
+realizará pruebas tanto de una aplicación web como de un API para determinar posibles
+problemas o metas en sus atributos de calidad de software
+
+
+a. Usando las herramientas de google Chrome haga un análisis del sitio web Wikipedia
+y enumere al menos tres posibles problemas detectados en el sitio web. Para esto
+abra el sitio web en Google Chrome, y abra las herramientas de desarrollo (F12) y
+utilice el reporte generado por Lighthouse para dispositivos móviles y para escritorio.
+¿Qué diferencias encontró entre estos dos reportes? ¿Qué tipo de atributos de
+calidad pueden ser validados usando estos reportes?
+
+RTA/ 
+     Para Dispositivos Mobiles se econtraron 2 problemas principales:
+1. No utiliza oyentes pasivos para mejorar el rendimiento del desplazamiento. hace referencia al scroll cuando se realiza un slice sobre el sitio.
+2. Sericios de cache estáticos con una política de caché deficiente.
+
+Para la WEB se encuentran estos mismos para mobiles pero adicional:
+
+presente problemas de accesibilidad para que el usuario pueda entender mejor lo que se le esta presentando esto es:
+1. un 9% de los enlaces del sitio no tiene un nombre claro y discernible.
+
+en cuanto a los atributos de calidad del sitio el porcentaje generales estas se mantienen arriba pero para ser un sitio tan importante y pooular se presentan falencias  importantes:
+
+Performance -> 76%
+Accesibility -> 91%
+Best Practicies-> 73%
+CEO -> 85%
+
+PUNTO 3
+---------------------------------------------------------------
+
+Circuit breaker
+
+Basado de un Ejemplo encontrado en internet de Implementacion de circuitbraker
+
+Se implementa un codigo cliente
+
+@Component
+public class ClientService {
+
+    @Autowired
+    private LoadBalancerClient loadBalancer;
+
+    @HystrixCommand(fallbackMethod = "getFallback", commandProperties = {
+            @HystrixProperty(name = "circuitBreaker.requestVolumeThreshold", value = "4"),
+            @HystrixProperty(name = "circuitBreaker.errorThresholdPercentage", value = "50"),
+            @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "1000")
+    })
+    public String get() {
+        ServiceInstance instance = loadBalancer.choose("service");
+        URI uri = instance.getUri();
+        return Client.create().resource(uri).get(String.class);
+    }
+
+    private String getFallback() {
+        return "Fallback";
+    }
+}
+
+puede verse por ejemplo que se pueden realiza llamadas atraves de get() y con @HystrixCommand se encapsulan las llamadas que pueden fallar para ser tratadas con circuitbraker manejando el numero de peticiones fallidas , los tiempos de las solicitudes y el porcetaje, con esto se pueden hacer las reglas para activador el circuitbreaker, el circuito se abre cuando supera un umbral y un porcentaje de fallos.
+
+
+
+
+
+
+
+
+
+
